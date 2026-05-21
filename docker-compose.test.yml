@@ -1,7 +1,10 @@
 services:
   test:
     build: .
-    command: ["python", "-m", "pytest", "--tb=short", "-q"]
+    command:
+      - sh
+      - -c
+      - pip install -e '.[test]' -q && python -m pytest --tb=short -q
     depends_on:
       postgres:
         condition: service_healthy

@@ -217,6 +217,7 @@ Demo: client-ready MVP with known limitations and required secrets clearly docum
 
 ## Remaining Watch Items
 
+- **Source-repo integration divergence (recorded):** The client brief asked for direct module absorption from `longevity-multi-agent` and `cureforge-comms-mvp`. This delivery uses **package-wrapping** (`packages/ingestion_agent/`, `packages/comms_agent/` scaffolds) instead. The boundary is cleaner for MVP handoff; if it slows iteration in Phase 3 orchestration, revisit and merge modules directly.
 - Decide final repo name: `cureforge-comms-mvp` is recommended for this MVP; `cureforge-comms` is appropriate if this becomes the long-lived monorepo.
 - Store the client taxonomy v0.2 as data, not hardcoded Python constants.
 - Review taxonomy count with client: metadata declares 57 total entities, but the extracted JSON currently contains 56 entries.

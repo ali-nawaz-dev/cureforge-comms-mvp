@@ -50,7 +50,7 @@ def build_demo_dashboard_data() -> dict[str, Any]:
     signal = pipeline.ingest(telegram_signal("Stem cell longevity clinical regenerative update"))
     matches = MatchingEngine(taxonomy=taxonomy, contacts=contacts).match_external_signal(signal) if signal else []
 
-    queue = ApprovalQueue()
+    queue = ApprovalQueue(bus=bus)
     draft = queue.draft("Demo outreach draft for HITL review.", {"principal_investigator"})
     token = queue.approve(draft.draft_id, "mock_pi@longevityintime.org", "principal_investigator")
     send_result = OutreachSender(queue).send_email(draft.draft_id, token)
@@ -123,7 +123,7 @@ def _init_state(st: Any) -> None:
     taxonomy = load_taxonomy(TAXONOMY_PATH)
     contacts = load_contacts(CONTACTS_PATH)
     bus = get_bus()
-    queue = ApprovalQueue()
+    queue = ApprovalQueue(bus=bus)
     reviewers = load_reviewers()
     ledger = Ledger()
     st.session_state.taxonomy = taxonomy

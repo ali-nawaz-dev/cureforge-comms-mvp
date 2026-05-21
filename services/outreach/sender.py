@@ -115,7 +115,15 @@ class OutreachSender:
             delivered = self.mode != "live"
 
         if delivered:
-            self.approval_queue.mark_sent(draft_id, token)  # type: ignore[arg-type]
+            self.approval_queue.mark_sent(  # type: ignore[arg-type]
+                draft_id,
+                token,
+                send_metadata={
+                    "provider": "resend",
+                    "mode": self.mode,
+                    "resend_email_id": resend_email_id,
+                },
+            )
             if contact_id:
                 repo = self._get_contact_repo()
                 if repo:

@@ -227,6 +227,19 @@ Both `__init__.py` files contain step-by-step integration instructions.
 | `memory` (default) | In-process — no Redis required |
 | `redis` | `RedisBus` via `REDIS_URL` — enables multi-process fan-out |
 
+### Bus topics (HITL + pipeline)
+
+| Topic | Emitter |
+|---|---|
+| `external_signal.*` | Ingestion pipeline |
+| `outreach_candidate.*` | MatcherWorker |
+| `outreach_draft.created` | OutreachWorker |
+| `approval.rejected` | ApprovalQueue on reject |
+| `message.sent` | ApprovalQueue on successful mark_sent |
+| `dlq.*` | Workers on handler failure |
+
+Live Redis walkthrough: `PYTHONPATH=. BUS_BACKEND=redis REDIS_URL=redis://localhost:6379/0 python3.11 scripts/redis_bus_e2e.py`
+
 ---
 
 ## Explicit Non-Scope (This MVP)

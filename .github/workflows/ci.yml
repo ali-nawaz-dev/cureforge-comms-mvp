@@ -19,7 +19,7 @@ jobs:
           cache: pip
 
       - name: Install dependencies
-        run: pip install -e ".[dev]"
+        run: pip install -e ".[dev,test]"
 
       - name: Lint (ruff)
         run: ruff check .
@@ -28,7 +28,7 @@ jobs:
         env:
           BUS_BACKEND: memory
           APP_ENV: test
-        run: pytest --tb=short -q
+        run: pytest --tb=short -q --cov=packages --cov=services --cov-report=term-missing
 
   # -------------------------------------------------------------------------
   # Schema migration smoke test against a live Postgres
@@ -57,7 +57,7 @@ jobs:
           python-version: "3.11"
           cache: pip
       - name: Install
-        run: pip install -e ".[dev]"
+        run: pip install -e ".[dev,test]"
       - name: Run migrations
         env:
           DATABASE_URL: postgresql://cureforge:cureforge@localhost:5432/cureforge
@@ -90,7 +90,7 @@ jobs:
           python-version: "3.11"
           cache: pip
       - name: Install
-        run: pip install -e ".[dev]"
+        run: pip install -e ".[dev,test]"
       - name: pip-audit (non-blocking)
         # Allow this job to fail without blocking the pipeline; the report
         # is uploaded to the CI logs so security can review.

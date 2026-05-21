@@ -7,7 +7,7 @@ help:          ## Show this help
 	@grep -E '^[a-zA-Z_-]+:.*##' Makefile | awk 'BEGIN{FS=":.*##"}{printf "  \033[36m%-22s\033[0m %s\n",$$1,$$2}'
 
 install:       ## Install all dependencies (editable)
-	pip install -e ".[dev]"
+	pip install -e ".[dev,test]"
 
 lint:          ## Run ruff linter
 	python -m ruff check .
@@ -17,6 +17,9 @@ lint-fix:      ## Auto-fix ruff lint errors
 
 test:          ## Run unit tests (no external services needed)
 	python -m pytest tests/ -q
+
+test-cov:      ## Run unit tests with coverage on packages/ and services/
+	python -m pytest tests/ -q --cov=packages --cov=services --cov-report=term-missing
 
 test-verbose:  ## Run unit tests with full output
 	python -m pytest tests/ -v
@@ -44,3 +47,6 @@ import-contacts: ## Import contacts from CSV/JSON (usage: make import-contacts F
 
 publish-milestone: ## Publish an internal milestone (usage: make publish-milestone TITLE="..." BODY="...")
 	python -m services.matching.milestones --title "$(TITLE)" --body "$(BODY)"
+
+redis-e2e:       ## Live Redis bus walkthrough (needs Redis on REDIS_URL)
+	PYTHONPATH=. BUS_BACKEND=redis REDIS_URL=$${REDIS_URL:-redis://localhost:6379/0} python3.11 scripts/redis_bus_e2e.py

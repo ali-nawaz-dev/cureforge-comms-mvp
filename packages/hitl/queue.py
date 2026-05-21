@@ -1,8 +1,17 @@
+from __future__ import annotations
+
 import threading
 from dataclasses import dataclass, field
-from datetime import datetime
+from datetime import datetime, timezone
 from enum import Enum
+from typing import TYPE_CHECKING, Any
 from uuid import UUID, uuid4
+
+from packages.common.schemas import EventEnvelope
+from packages.common.time import utc_now_iso
+
+if TYPE_CHECKING:
+    from packages.bus.protocol import MessageBus
 
 
 class ApprovalState(str, Enum):
@@ -45,10 +54,18 @@ class ApprovalQueue:
     guard. Durable storage (Postgres) is plugged via the ``repository`` arg.
     """
 
-    def __init__(self, repository=None) -> None:
+    def __init__(self, repository=None, bus: MessageBus | None = None) -> None:
         self.records: dict[UUID, DraftRecord] = {}
         self._repo = repository
+        self._bus = bus
         self._lock = threading.RLock()
+
+    def _publish(self, topic: str, payload: dict[str, Any]) -> None:
+        if self._bus is None:
+            return
+        self._bus.publish(
+            EventEnvelope(event_id=uuid4(), topic=topic, payload=payload)
+        )
 
     def _get(self, draft_id: UUID) -> DraftRecord:
         record = self.records.get(draft_id)
@@ -106,13 +123,21 @@ class ApprovalQueue:
             record.state = ApprovalState.REJECTED
             if self._repo:
                 self._repo.record_state(record)
+            self._publish(
+                "approval.rejected",
+                {
+                    "draft_id": str(draft_id),
+                    "state": record.state.value,
+                    "timestamp": utc_now_iso(),
+                },
+            )
 
     def edit(self, draft_id: UUID, content: str, editor: str | None = None) -> None:
         with self._lock:
             record = self._get(draft_id)
             if record.state != ApprovalState.AWAITING_APPROVAL:
                 raise ValueError("Only awaiting approval records can be edited")
-            record.edit_history.append((datetime.utcnow(), editor or "unknown"))
+            record.edit_history.append((datetime.now(timezone.utc), editor or "unknown"))
             record.content = content
             record.approvals.clear()
             # Stays in AWAITING_APPROVAL so the gate re-runs.
@@ -127,10 +152,27 @@ class ApprovalQueue:
             if token is None or record.token != token or token.draft_id != draft_id:
                 raise PermissionError("Valid approval token is required")
 
-    def mark_sent(self, draft_id: UUID, token: ApprovalToken) -> None:
+    def mark_sent(
+        self,
+        draft_id: UUID,
+        token: ApprovalToken,
+        *,
+        send_metadata: dict[str, Any] | None = None,
+    ) -> None:
         with self._lock:
             self.validate_send_token(draft_id, token)
             record = self._get(draft_id)
             record.state = ApprovalState.SENT
             if self._repo:
                 self._repo.record_state(record)
+            payload: dict[str, Any] = {
+                "draft_id": str(draft_id),
+                "token_id": str(token.token_id),
+                "reviewer_identity": token.reviewer_identity,
+                "reviewer_role": token.reviewer_role,
+                "state": record.state.value,
+                "timestamp": utc_now_iso(),
+            }
+            if send_metadata:
+                payload.update(send_metadata)
+            self._publish("message.sent", payload)
