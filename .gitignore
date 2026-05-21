@@ -1,0 +1,71 @@
+# ── Secrets – NEVER commit these ─────────────────────────────────────────────
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+*.p12
+secrets/
+credentials/
+
+# ── Python ────────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+*.whl
+site-packages/
+.installed.cfg
+pip-selfcheck.json
+
+# ── Virtual environments ──────────────────────────────────────────────────────
+.venv/
+venv/
+env/
+ENV/
+.Python
+
+# ── Local data and SQLite files ───────────────────────────────────────────────
+.local/
+*.sqlite3
+*.sqlite
+*.db
+
+# ── Test and coverage artifacts ───────────────────────────────────────────────
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+.tox/
+nosetests.xml
+junit*.xml
+
+# ── Linting / type checking ───────────────────────────────────────────────────
+.ruff_cache/
+.mypy_cache/
+.dmypy.json
+
+# ── IDEs and editors ──────────────────────────────────────────────────────────
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# ── Docker ────────────────────────────────────────────────────────────────────
+docker-compose.override.yml
+
+# ── Streamlit ─────────────────────────────────────────────────────────────────
+.streamlit/secrets.toml
+
+# ── Logs ─────────────────────────────────────────────────────────────────────
+*.log
+logs/

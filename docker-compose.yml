@@ -1,0 +1,106 @@
+services:
+  # ---------------------------------------------------------------------
+  # Migration init container — runs to completion before the app starts.
+  # Same image as the runtime so the schema file is guaranteed to be in
+  # sync with the deployed code.
+  # ---------------------------------------------------------------------
+  migrate:
+    build: .
+    env_file: .env
+    command:
+      [
+        "python",
+        "-c",
+        "from packages.db.connection import run_migrations; run_migrations()",
+      ]
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://cureforge:cureforge@postgres:5432/cureforge
+    restart: "no"
+
+  app:
+    build: .
+    env_file: .env
+    command:
+      [
+        "streamlit",
+        "run",
+        "apps/dashboard/app.py",
+        "--server.port=8501",
+        "--server.address=0.0.0.0",
+      ]
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+      redis:
+        condition: service_healthy
+    ports:
+      - "8501:8501"
+    environment:
+      APP_ENV: production
+      DATABASE_URL: postgresql://cureforge:cureforge@postgres:5432/cureforge
+      REDIS_URL: redis://redis:6379/0
+      BUS_BACKEND: redis
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8501/_stcore/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+
+  webhook:
+    build: .
+    env_file: .env
+    command:
+      [
+        "uvicorn",
+        "services.outreach.webhook:app",
+        "--host",
+        "0.0.0.0",
+        "--port",
+        "8001",
+      ]
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    ports:
+      - "8001:8001"
+    environment:
+      APP_ENV: production
+      DATABASE_URL: postgresql://cureforge:cureforge@postgres:5432/cureforge
+      REDIS_URL: redis://redis:6379/0
+      BUS_BACKEND: redis
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8001/healthz"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+
+  postgres:
+    image: postgres:16.4-alpine
+    environment:
+      POSTGRES_USER: cureforge
+      POSTGRES_PASSWORD: cureforge
+      POSTGRES_DB: cureforge
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U cureforge"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7.4-alpine
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  postgres-data:
+  redis-data:

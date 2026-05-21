@@ -1,0 +1,33 @@
+services:
+  test:
+    build: .
+    command: ["python", "-m", "pytest", "--tb=short", "-q"]
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://cureforge:cureforge@postgres:5432/cureforge
+      REDIS_URL: redis://redis:6379/0
+      BUS_BACKEND: memory  # unit tests use in-memory bus; integration tests can override
+
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: cureforge
+      POSTGRES_PASSWORD: cureforge
+      POSTGRES_DB: cureforge
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U cureforge"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10

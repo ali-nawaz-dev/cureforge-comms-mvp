@@ -1,0 +1,31 @@
+# Development overrides for docker-compose. Layers on top of docker-compose.yml::
+#
+#   docker compose -f docker-compose.yml -f docker-compose.dev.yml up
+#
+# - Mounts the working tree into the container for live reload.
+# - Exposes Postgres + Redis to the host for ad-hoc psql/redis-cli inspection.
+# - Sets APP_ENV=dev so the webhook accepts unsigned requests in tests.
+services:
+  app:
+    volumes:
+      - .:/app
+    environment:
+      APP_ENV: dev
+    ports:
+      - "8501:8501"
+
+  webhook:
+    volumes:
+      - .:/app
+    environment:
+      APP_ENV: dev
+    ports:
+      - "8001:8001"
+
+  postgres:
+    ports:
+      - "5432:5432"
+
+  redis:
+    ports:
+      - "6379:6379"

@@ -1,0 +1,80 @@
+{
+  "schema_version": "0.2",
+  "federation_count": {"institutes": 55, "sub_institutes": 2, "total_entities": 57},
+  "id_type": "string",
+  "tiers": [
+    {"tier_id": 0, "tier_name": "Spine", "institutes": [
+      {"institute_id": "1", "long_name": null, "short_name": null, "name_status": "VERIFY_CICL"},
+      {"institute_id": "2", "long_name": null, "short_name": null, "name_status": "VERIFY_CICL"},
+      {"institute_id": "13", "long_name": "Brain Institute", "short_name": "#13 Brain", "name_status": "CONFIRMED"},
+      {"institute_id": "14", "long_name": null, "short_name": null, "name_status": "VERIFY_CICL"},
+      {"institute_id": "23", "long_name": "Cross-Institute Coordination Layer (CICL) Institute", "short_name": "#23 CICL", "name_status": "CONFIRMED", "patent_anchor": "P11"}
+    ]},
+    {"tier_id": 1, "tier_name": "Disease & Organ Verticals", "institutes": [
+      {"institute_id": "3", "long_name": "Core Longevity Institute", "short_name": "#3 Core Longevity", "name_status": "CONFIRMED"},
+      {"institute_id": "4", "long_name": null, "short_name": null, "name_status": "RESOLVE"},
+      {"institute_id": "5", "long_name": "Cardiac Institute", "short_name": "#5 Cardiac", "name_status": "CONFIRMED"},
+      {"institute_id": "6", "long_name": "Seventy-Eight-Organ Institute", "short_name": "#6 Seventy-Eight-Organ", "name_status": "CONFIRMED"},
+      {"institute_id": "15", "long_name": "Alzheimer's Institute", "short_name": "#15 Alzheimer's", "name_status": "CONFIRMED", "patent_anchor": "P15"},
+      {"institute_id": "17", "long_name": "Sexual Health Institute", "short_name": "#17 Sexual Health", "name_status": "CONFIRMED", "has_sub_institutes": ["19"]},
+      {"institute_id": "19", "long_name": "Intimate Microbiome Therapeutics Sub-Institute", "short_name": "#19 Intimate Microbiome", "name_status": "CONFIRMED", "is_sub_institute": true, "parent_institute_id": "17"},
+      {"institute_id": "37", "long_name": "Programmed Death Mechanisms Institute", "short_name": "#37 Programmed Death Mechanisms", "name_status": "CONFIRMED"},
+      {"institute_id": "42", "long_name": "Mental Health, Psychiatric & Connection-Biology Institute", "short_name": "#42 Mental Health", "name_status": "CONFIRMED", "patent_anchor": "P21"},
+      {"institute_id": "44", "long_name": "Reproductive Longevity & Hormonal Aging Institute", "short_name": "#44 Reproductive Longevity", "name_status": "CONFIRMED", "patent_anchor": "P19"},
+      {"institute_id": "45", "long_name": "Transplantation, Xenotransplantation & Bioengineered Organs Institute", "short_name": "#45 Transplantation/Xeno/Bioengineered Organs", "name_status": "CONFIRMED"},
+      {"institute_id": "46", "long_name": null, "short_name": null, "name_status": "VERIFY_CICL"},
+      {"institute_id": "47", "long_name": "Pain & Chronic Suffering Institute", "short_name": "#47 Pain & Chronic Suffering", "name_status": "CONFIRMED", "patent_anchor": "P24"},
+      {"institute_id": "54", "long_name": "Maternal, Perinatal & Childbirth Safety Institute", "short_name": "#54 Maternal/Perinatal/Childbirth Safety", "name_status": "CONFIRMED", "patent_anchor": "P18"}
+    ]},
+    {"tier_id": 2, "tier_name": "Discovery & Methods", "institutes": [
+      {"institute_id": "7", "long_name": null, "short_name": null, "name_status": "VERIFY_CICL"},
+      {"institute_id": "8", "long_name": null, "short_name": null, "name_status": "VERIFY_CICL"},
+      {"institute_id": "9", "long_name": null, "short_name": null, "name_status": "VERIFY_CICL"},
+      {"institute_id": "10", "long_name": "Drug Rescue and Patient Stratification Institute", "short_name": "#10 Drug Rescue", "name_status": "CONFIRMED"},
+      {"institute_id": "11", "long_name": "Cryonics Institute", "short_name": "#11 Cryonics", "name_status": "CONFIRMED"},
+      {"institute_id": "18", "long_name": null, "short_name": null, "name_status": "VERIFY_CICL"},
+      {"institute_id": "41", "long_name": "Nutrition, Fasting & Behavioral Longevity Institute", "short_name": "#41 Nutrition/Fasting/Behavioral Longevity", "name_status": "CONFIRMED", "patent_anchor": "P22"},
+      {"institute_id": "43", "long_name": "Sleep, Circadian & Glymphatic Institute", "short_name": "#43 Sleep/Circadian/Glymphatic", "name_status": "CONFIRMED"},
+      {"institute_id": "48", "long_name": "Stem Cell & Regenerative Medicine Institute", "short_name": "#48 Stem Cell & Regenerative Medicine", "name_status": "CONFIRMED", "patent_anchor": "P20"},
+      {"institute_id": "49", "long_name": null, "short_name": null, "name_status": "VERIFY_CICL"},
+      {"institute_id": "50", "long_name": "Developmental Origins Institute", "short_name": "#50 Developmental Origins", "name_status": "CONFIRMED"},
+      {"institute_id": "51", "long_name": null, "short_name": null, "name_status": "VERIFY_CICL"}
+    ]},
+    {"tier_id": 3, "tier_name": "Trust, Governance, Data Fabric", "institutes": [
+      {"institute_id": "12", "long_name": "Governance, Safety & Frontier Layer", "short_name": "#12 Governance/Safety/Frontier", "name_status": "CONFIRMED"},
+      {"institute_id": "16", "long_name": null, "short_name": null, "name_status": "RESOLVE"},
+      {"institute_id": "20", "long_name": null, "short_name": null, "name_status": "VERIFY_CICL"},
+      {"institute_id": "21", "long_name": null, "short_name": null, "name_status": "VERIFY_CICL"},
+      {"institute_id": "22", "long_name": null, "short_name": null, "name_status": "VERIFY_CICL"}
+    ]},
+    {"tier_id": 4, "tier_name": "Closed-Loop Completion", "institutes": [
+      {"institute_id": "24", "long_name": null, "short_name": null, "name_status": "VERIFY_CICL"},
+      {"institute_id": "25", "long_name": null, "short_name": null, "name_status": "VERIFY_CICL"},
+      {"institute_id": "26", "long_name": null, "short_name": null, "name_status": "VERIFY_CICL"},
+      {"institute_id": "27", "long_name": null, "short_name": null, "name_status": "VERIFY_CICL", "note": "Institute #27 -- do NOT confuse with patent P27, which anchors Institute #55"},
+      {"institute_id": "28", "long_name": "Clinical Site Network Institute", "short_name": "#28 Clinical Site Network", "name_status": "CONFIRMED"}
+    ]},
+    {"tier_id": 5, "tier_name": "Therapeutic Verticals", "institutes": [
+      {"institute_id": "29", "long_name": null, "short_name": null, "name_status": "VERIFY_CICL"},
+      {"institute_id": "30", "long_name": "In-Vivo Reprogramming Institute", "short_name": "#30 In-Vivo Reprogramming", "name_status": "CONFIRMED"},
+      {"institute_id": "31", "long_name": "Gene-Editing / Editor-Class Institute", "short_name": "#31 Gene-Editing", "name_status": "CONFIRMED", "patent_anchor": "P13"},
+      {"institute_id": "32", "long_name": "Endocrine / Metabolic Institute", "short_name": "#32 Endocrine/Metabolic", "name_status": "CONFIRMED"},
+      {"institute_id": "33", "long_name": "Immunology Institute", "short_name": "#33 Immunology", "name_status": "CONFIRMED"},
+      {"institute_id": "39", "long_name": "Infectious Disease Institute", "short_name": "#39 Infectious Disease", "name_status": "CONFIRMED"},
+      {"institute_id": "40", "long_name": "Acute Care, Trauma & Sudden-Death Prevention Institute", "short_name": "#40 Acute Care", "name_status": "CONFIRMED", "patent_anchor": "P17"}
+    ]},
+    {"tier_id": 6, "tier_name": "Strategic Accelerators", "institutes": [
+      {"institute_id": "34", "long_name": "Health Economics, Outcomes Research & Payor Strategy Institute", "short_name": "#34 HEOR & Payor Strategy", "name_status": "CONFIRMED", "has_sub_institutes": ["34-AaD"]},
+      {"institute_id": "34-AaD", "long_name": "Aging-as-Disease Clinical Classification & Regulatory Translation Sub-Institute", "short_name": "#34-AaD Aging-as-Disease", "name_status": "CONFIRMED", "is_sub_institute": true, "parent_institute_id": "34"},
+      {"institute_id": "35", "long_name": null, "short_name": null, "name_status": "VERIFY_CICL"},
+      {"institute_id": "55", "long_name": "Autonomous Business Entity Operations Institute", "short_name": "#55 Autonomous Business Entity Operations", "name_status": "CONFIRMED", "patent_anchor": "P27"}
+    ]},
+    {"tier_id": 7, "tier_name": "Frontier", "institutes": [
+      {"institute_id": "36", "long_name": "Mind Transfer Institute", "short_name": "#36 Mind Transfer", "name_status": "CONFIRMED", "patent_anchor": "P15"},
+      {"institute_id": "38", "long_name": "LEV / CLEV Modeling Institute", "short_name": "#38 LEV/CLEV Modeling", "name_status": "CONFIRMED", "patent_anchor": "P11"},
+      {"institute_id": "52", "long_name": "Quantum Biology Institute", "short_name": "#52 Quantum Biology", "name_status": "CONFIRMED", "patent_anchor": "P25"},
+      {"institute_id": "53", "long_name": "Synthetic Biology & Genome Foundry Institute", "short_name": "#53 Synthetic Biology & Genome Foundry", "name_status": "CONFIRMED", "patent_anchor": "P26"}
+    ]}
+  ]
+}
+

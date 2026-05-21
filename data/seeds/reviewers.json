@@ -1,0 +1,32 @@
+[
+  {
+    "email": "mock_patent_counsel@longevityintime.org",
+    "role": "patent_counsel",
+    "real_identity_status": "TBC — real name/email from boss, expected Day 1",
+    "note": "Swap email to real identity when received. Role binding and token enforcement are already live."
+  },
+  {
+    "email": "mock_regulatory_advisor@longevityintime.org",
+    "role": "regulatory_advisor",
+    "real_identity_status": "TBC — real name/email from boss, expected Day 1",
+    "note": "Swap email to real identity when received."
+  },
+  {
+    "email": "mock_institutional_legal@longevityintime.org",
+    "role": "institutional_legal",
+    "real_identity_status": "TBC — real name/email from boss, expected Day 1",
+    "note": "Swap email to real identity when received."
+  },
+  {
+    "email": "mock_pi@longevityintime.org",
+    "role": "principal_investigator",
+    "real_identity_status": "TBC — real name/email from boss, expected Day 1",
+    "note": "Swap email to real identity when received."
+  },
+  {
+    "email": "mock_grants_admin@longevityintime.org",
+    "role": "grants_administrator",
+    "real_identity_status": "TBC — real name/email from boss, expected Day 1",
+    "note": "Swap email to real identity when received."
+  }
+]
