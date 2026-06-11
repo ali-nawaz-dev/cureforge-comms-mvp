@@ -2,7 +2,7 @@
 # Multi-stage build: install deps in a builder, ship a slimmer runtime image
 # that runs as a non-root user.
 
-FROM python:3.11.10-slim AS builder
+FROM python:3.14.0-slim AS builder
 
 ENV PIP_NO_CACHE_DIR=1 \
     PIP_DISABLE_PIP_VERSION_CHECK=1 \
@@ -22,7 +22,7 @@ COPY . .
 # ---------------------------------------------------------------------------
 # Runtime
 # ---------------------------------------------------------------------------
-FROM python:3.11.10-slim AS runtime
+FROM python:3.14.0-slim AS runtime
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
